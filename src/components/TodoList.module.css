@@ -1,0 +1,14 @@
+
+.todo-list {
+    margin: 20px;
+  }
+
+  .todo-list h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .todo-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
