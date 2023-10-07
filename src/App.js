@@ -1,12 +1,9 @@
 // app.js
 import React, { useState, useEffect } from 'react';
 import './App.css'; // Import your CSS files here
-import './components/TodoForm.module.css';
-import  './components/TodoList.module.css';
-import  './components/TodoItem.module.css';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
-import TodoItem from './components/TodoItem';
+
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 
 
 function App() {
@@ -28,14 +25,12 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>To - Do</h1>
-      </header>
       <main>
-        <TodoForm onCreateTodo={createTodo} />
-        <TodoList items={todos} />
+        <TaskForm onCreateTodo={createTodo} />
+        <TaskList items={todos} />
       </main>
     </div>
+
   );
 }
 
