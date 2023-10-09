@@ -9,14 +9,11 @@ const  TaskForm = ({ onCreateTodo }) => {
     const [selectedDate, setSelectedDate] = useState(null);
 
   const handleSubmit = (e) => {
+    console.log('Entering handleSubmit');
     e.preventDefault();
-    axios.post('http://localhost:8080/api/todos/create', { title, description, dueDate: selectedDate, completed: false }) // need to Replace with the actual endpoint
-      .then(() => {
-        // Refresh the task list or update the state
-        // Optionally,  can be displayed a success message
-      })
+    console.log('Form submitted');
+    axios.post('http://localhost:8080/api/create', { title, description, dueDate: selectedDate, completed: false }) // need to Replace with the actual endpoint
       .then((response) => {
-        // After successfully creating the task, update the state
         onCreateTodo(response.data);
 
         // Optionally, you can reset the form fields

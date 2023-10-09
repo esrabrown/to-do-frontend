@@ -12,7 +12,7 @@ const TaskList = () => {
 
   const handleDelete = (taskId) => {
     // Send a DELETE request to your backend API to delete the task
-    axios.delete(`http://localhost:8080/api/todos/${taskId}`) // Replace with the actual endpoint
+    axios.delete(`http://localhost:8080/api/${taskId}`) // Replace with the actual endpoint
       .then(() => {
         // After successful deletion, remove the task from the state
         setTasks(tasks.filter(task => task.id !== taskId));
@@ -32,7 +32,7 @@ const TaskList = () => {
     setTasks(updatedTasks);
 
     // Send a PATCH or PUT request to update the completion status in the backend
-    axios.patch(`http://localhost:8080/api/todos/${taskId}`, { completed: !isCompleted })
+    axios.patch(`http://localhost:8080/api/${taskId}`, { completed: !isCompleted })
       .then(() => {
         // The task's completion status has been updated on the backend
         // You can choose to handle any additional logic here if needed
