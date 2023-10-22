@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import 'react-datepicker/dist/react-datepicker.css';
+// import { Link } from 'react-router-dom';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
+  const [showTodoList, setShowTodoList] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/todos') // Replace with the actual endpoint
+    axios.get('http://localhost:8080/api/todos')
       .then((response) => setTasks(response.data))
       .catch((error) => console.error(error));
   }, []);
 
   const handleDelete = (taskId) => {
-    // Send a DELETE request to your backend API to delete the task
-    axios.delete(`http://localhost:8080/api/${taskId}`) // Replace with the actual endpoint
+    // Sending a DELETE request to backend API
+    axios.delete(`http://localhost:8080/api/${taskId}`)
       .then(() => {
         // After successful deletion, remove the task from the state
         setTasks(tasks.filter(task => task.id !== taskId));
@@ -46,51 +48,29 @@ const TaskList = () => {
   };
 
   return (
-    <div>
-      <h2>To-Do List</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <strong>Title:</strong> {task.title}<br />
-            <strong>Description:</strong> {task.description}<br />
-            <strong>Date:</strong> {task.date}<br />
-            <strong>Status:</strong> {task.completed ? 'Completed' : 'Incomplete'}<br />
-            <button onClick={() => handleToggleCompletion(task.id, task.completed)}>
-              {task.completed ? 'Mark Incomplete' : 'Mark Completed'}
-            </button>
-            <button onClick={() => handleDelete(task.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-      <Link to="/">
-        <button>Back Home Page</button>
-      </Link>
+       <div>
+      {showTodoList ? (
+        <div>
+          <ul>
+            {tasks.map((task) => (
+              <li key={task.id}>
+                <strong>Title:</strong> {task.title}<br />
+                <strong>Description:</strong> {task.description}<br />
+                <strong>Date:</strong> {task.date}<br />
+                <strong>Status:</strong> {task.completed ? 'Completed' : 'Incomplete'}<br />
+                <button onClick={() => handleToggleCompletion(task.id, task.completed)}>
+                  {task.completed ? 'Mark Incomplete' : 'Mark Completed'}
+                </button>
+                <button onClick={() => handleDelete(task.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+          <button onClick={() => setShowTodoList(false)}>Hide Todo List</button>
+        </div>
+      ) : (
+        <button onClick={() => setShowTodoList(true)}>Show Todo List</button>
+      )}
     </div>
-
-    // <div>
-    // const [showTodoList, setShowTodoList] = useState(false);
-    //   {showTodoList ? (
-    //     <div>
-    //       <ul>
-    //         {tasks.map((task) => (
-    //           <li key={task.id}>
-    //             <strong>Title:</strong> {task.title}<br />
-    //             <strong>Description:</strong> {task.description}<br />
-    //             <strong>Date:</strong> {task.date}<br />
-    //             <strong>Status:</strong> {task.completed ? 'Completed' : 'Incomplete'}<br />
-    //             <button onClick={() => handleToggleCompletion(task.id, task.completed)}>
-    //               {task.completed ? 'Mark Incomplete' : 'Mark Completed'}
-    //             </button>
-    //             <button onClick={() => handleDelete(task.id)}>Delete</button>
-    //           </li>
-    //         ))}
-    //       </ul>
-    //       <button onClick={() => setShowTodoList(false)}>Hide Todo List</button>
-    //     </div>
-    //   ) : (
-    //     <button onClick={() => setShowTodoList(true)}>Show Todo List</button>
-    //   )}
-    // </div>
   );
 };
 

@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Link } from 'react-router-dom';
+
+
+// import { Link } from 'react-router-dom';
 
 const  TaskForm = ({ onCreateTodo }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState('');
 
   const handleSubmit = (e) => {
     console.log('Entering handleSubmit');
     e.preventDefault();
     console.log('Form submitted');
-    axios.post('http://localhost:8080/api/create', { title, description, dueDate: selectedDate, completed: false }) // need to Replace with the actual endpoint
+    axios.post('http://localhost:8080/api/create', { title, description, dueDate: selectedDate, completed: false })
       .then((response) => {
         onCreateTodo(response.data);
-
-        // Optionally, you can reset the form fields
         setTitle('');
         setDescription('');
-        setSelectedDate(null);
+        setSelectedDate('');
       })
       .catch((error) => console.error(error));
   };
@@ -110,9 +109,9 @@ const  TaskForm = ({ onCreateTodo }) => {
         <button type="submit" className='button'>Add Task</button>
         </div>
       </form>
-      <Link to="/tasklist">
-        <button>Show Task List</button>
-      </Link>
+      {/* <Link to="/tasklist">
+        <button className='show-task-button'>Show Task List</button>
+      </Link> */}
     </div>
   );
 };
