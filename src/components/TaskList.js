@@ -45,25 +45,65 @@ const TaskList = () => {
       });
   };
 
+  const GreenCheckIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="green"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12l2 2 4-4" />
+    </svg>
+  );
+
+  const RedTrashIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="red"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="3 6 5 6 21 6" />
+      <path d="M17 6l-1 14a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 6" />
+      <line x1="7" y1="3" x2="17" y2="3" />
+    </svg>
+  );
 
 return (
   <div>
     <ul>
       {tasks.map((task) => (
-        <li key={task.id}>
-          <strong>Title:</strong> {task.title}<br />
-          <strong>Description:</strong> {task.description}<br />
-          <strong>Date:</strong> {task.date}<br />
-          <strong>Status:</strong> {task.completed ? 'Completed' : 'Incomplete'}<br />
-          <button onClick={() => handleToggleCompletion(task.id, task.completed)}>
-            {task.completed ? 'Mark Incomplete' : 'Mark Completed'}
-          </button>
-          <button onClick={() => handleDelete(task.id)}>Delete</button>
+        <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
+          <div className="task-title"> Title: {task.title}</div>
+          <div className="task-description"> Description: {task.description}</div>
+          <div className="task-date"> Date: {task.date}</div>
+          <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
+          <div className="task-buttons">
+          <button
+              className={`complete-button ${task.completed ? 'completed' : ''}`}
+              onClick={() => handleToggleCompletion(task.id, task.completed)}
+            >
+              {task.completed ? <GreenCheckIcon /> : 'Mark Completed'}
+            </button>
+            <button className="delete-button" onClick={() => handleDelete(task.id)}>
+                <RedTrashIcon />
+            </button>
+          </div>
         </li>
       ))}
     </ul>
     <a href="http://localhost:3000/">Add More Tasks</a>
-
   </div>
 );
 };

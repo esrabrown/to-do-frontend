@@ -136,4 +136,55 @@ body {
     cursor: pointer;
   } */
 
-  
+  /* Add this CSS to your stylesheet or component */
+  .task-box.completed {
+    text-decoration: line-through;
+  }
+
+  .task-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .task-title {
+    font-weight: bold;
+  }
+
+  .task-description {
+    margin-bottom: 5px;
+  }
+
+  /* .task-date {
+    color: #666;
+  } */
+
+  .task-status {
+    margin-top: 5px;
+  }
+
+
+.complete-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.complete-button.completed {
+  color: green;
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.delete-button :hover{
+  background-color: #ff8c8c;
+}
