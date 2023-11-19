@@ -73,11 +73,31 @@ const TaskList = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-    >
-      <polyline points="3 6 5 6 21 6" />
-      <path d="M17 6l-1 14a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2L7 6" />
-      <line x1="7" y1="3" x2="17" y2="3" />
-    </svg>
+      dangerouslySetInnerHTML={{
+        __html:
+          "<polyline points='3 6 5 6 21 6'/><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/><line x1='10' y1='11' x2='10' y2='17'/><line x1='14' y1='11' x2='14' y2='17'/>",
+      }}
+    />
+  );
+
+  const CheckIcon = () => (
+     <svg
+    fill="green"
+    height="20"
+    width="20"
+    version="1.1"
+    id="Capa_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 300 300"
+    xmlSpace="preserve"
+  >
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path d="M150,0C67.29,0,0,67.29,0,150s67.29,150,150,150s150-67.29,150-150S232.71,0,150,0z M150,270c-66.169,0-120-53.832-120-120 S83.831,30,150,30s120,53.832,120,120S216.168,270,150,270z"></path>
+    </g>
+  </svg>
   );
 
 return (
@@ -94,7 +114,7 @@ return (
               className={`complete-button ${task.completed ? 'completed' : ''}`}
               onClick={() => handleToggleCompletion(task.id, task.completed)}
             >
-              {task.completed ? <GreenCheckIcon /> : 'Mark Completed'}
+              {task.completed ? <GreenCheckIcon /> : <CheckIcon className='check-icon'/>}
             </button>
             <button className="delete-button" onClick={() => handleDelete(task.id)}>
                 <RedTrashIcon />

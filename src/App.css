@@ -136,19 +136,20 @@ body {
     cursor: pointer;
   } */
 
-  /* Add this CSS to your stylesheet or component */
+
   .task-box.completed {
     text-decoration: line-through;
   }
 
   .task-box {
     border: 1px solid #ccc;
+    margin-bottom: 12px;
     padding: 10px;
-    margin-bottom: 10px;
   }
 
   .task-title {
     font-weight: bold;
+    justify-content: center;
   }
 
   .task-description {
@@ -183,8 +184,15 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 50%;
+  margin-top: 5px;
 }
 
 .delete-button :hover{
   background-color: #ff8c8c;
+}
+
+.check-icon{
+  border-radius: 50%;
+  border: 1px solid #0e0e0e;
+
 }
