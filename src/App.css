@@ -142,6 +142,7 @@ body {
   }
 
   .task-box {
+    flex-direction: column;
     border: 1px solid #ccc;
     margin-bottom: 12px;
     padding: 10px;
@@ -149,7 +150,6 @@ body {
 
   .task-title {
     font-weight: bold;
-    justify-content: center;
   }
 
   .task-description {
@@ -166,25 +166,31 @@ body {
 
 
 .complete-button {
-  display: flex;
+  margin-top: 10px;
   align-items: center;
+  background-position: center;
   background: none;
   border: none;
   cursor: pointer;
 }
+
+/* .complete-button :hover{
+  box-shadow: 0 0 0 3px  green;
+  border-color:  green;
+
+} */
 
 .complete-button.completed {
   color: green;
 }
 
 .delete-button {
-  display: flex;
-  align-items: center;
+  float: right;
   background: none;
   border: none;
   cursor: pointer;
   border-radius: 50%;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 .delete-button :hover{
@@ -194,5 +200,4 @@ body {
 .check-icon{
   border-radius: 50%;
   border: 1px solid #0e0e0e;
-
 }

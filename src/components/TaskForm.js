@@ -109,9 +109,7 @@ const  TaskForm = ({ onCreateTodo }) => {
         <button type="submit" className='button'>Add Task</button>
         </div>
       </form>
-      {/* <Link to="/tasklist">
-        <button className='show-task-button'>Show Task List</button>
-      </Link> */}
+      {/* <Link to="/tasklist">Go to Task List</Link> */}
     </div>
   );
 };
