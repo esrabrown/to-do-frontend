@@ -19,6 +19,14 @@ body {
 }
 
 
+.h1-title  {
+  transform: rotate(2deg);
+  padding: 0.2rem 1.2rem;
+  border-radius: 20% 5% 20% 5%/5% 20% 25% 20%;
+  background-color: hsla(166, 100%, 50%, 0.7);
+  font-size: 1.5rem;
+}
+
 .container{
   width: 100%;
   height: auto;
@@ -42,7 +50,7 @@ body {
   }
 
   .task-form button {
-    background-color: #55df83;
+    background-color:hsla(166, 97%, 34%, 0.7);
     color: #fff;
     border: none;
     border-radius: 4px;

@@ -27,6 +27,7 @@ const  TaskForm = ({ onCreateTodo }) => {
   return (
     <div className='container'>
      <div>
+      <div className='h1-title'> To-Do List </div> <br></br>
       <svg className='svg-form'
         version="1.1"
         id="Layer_1"
