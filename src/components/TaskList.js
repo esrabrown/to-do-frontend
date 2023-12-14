@@ -105,10 +105,12 @@ return (
     <ul>
       {tasks.map((task) => (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
+        <div className="task-info">
           <div className="task-title"> Title: {task.title}</div>
           <div className="task-description"> Description: {task.description}</div>
           <div className="task-date"> Date: {task.date}</div>
           <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
+        </div>
           <div className="task-buttons">
           <button
               className={`complete-button ${task.completed ? 'completed' : ''}`}
