@@ -45,6 +45,17 @@ const TaskList = () => {
       });
   };
 
+  const formatDate = (dateString) => {
+    const formattedDate = new Date(dateString);
+
+    if (isNaN(formattedDate)) {
+      return "Invalid Date";
+    }
+
+    // Adjust the date format as needed
+    return formattedDate.toLocaleDateString();
+  };
+
   const GreenCheckIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -107,8 +118,11 @@ return (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
         <div className="task-info">
           <div className="task-title"> Title: {task.title}</div>
-          <div className="task-description"> Description: {task.description}</div>
-          <div className="task-date"> Date: {task.date}</div>
+          {/* <div className="task-description"> Description: {task.description}</div> */}
+          {/* Conditionally render description only if it exists */}
+          {task.description && <div className="task-description">Description: {task.description}</div>}
+          {/* <div className="task-date"> Date: {task.date}</div> */}
+          <div className="task-date"> Date: {formatDate(task.date)}</div>
           <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
         </div>
           <div className="task-buttons">
