@@ -56,6 +56,19 @@ const TaskList = () => {
     return formattedDate.toLocaleDateString();
   };
 
+  const pendingTasks = () => {
+    const pendingTasks = tasks.filter(task => !task.completed);
+
+    if (pendingTasks.length === 0) {
+      return 'No pending tasks';
+    } else if (pendingTasks.length === 1) {
+      return '1 pending task';
+    } else {
+      return `${pendingTasks.length} pending task${pendingTasks.length > 1 ? 's' : ''}`;
+    }
+  };
+
+
   const GreenCheckIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +126,7 @@ const TaskList = () => {
 
 return (
   <div>
+    <h3>{pendingTasks()}</h3>
     <ul>
       {tasks.map((task) => (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
@@ -121,8 +135,7 @@ return (
           {/* <div className="task-description"> Description: {task.description}</div> */}
           {/* Conditionally render description only if it exists */}
           {task.description && <div className="task-description">Description: {task.description}</div>}
-          {/* <div className="task-date"> Date: {task.date}</div> */}
-          <div className="task-date"> Date: {formatDate(task.date)}</div>
+          <div className="task-date"> Date: {task.date}</div>
           <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
         </div>
           <div className="task-buttons">
