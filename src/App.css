@@ -149,6 +149,8 @@ body {
 
   .task-box.completed {
     text-decoration: line-through;
+    font-style: italic;
+    color: #b3b3b3;
   }
 
   .task-box {
