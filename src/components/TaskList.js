@@ -124,18 +124,22 @@ const TaskList = () => {
   </svg>
   );
 
+  const sortTasks = () => {
+    return [...tasks].sort((a, b) => (a.completed && !b.completed ? 1 : -1));
+  };
+
 return (
   <div>
-    <h3>{pendingTasks()}</h3>
+    <h3 className='pendingtasks'>{pendingTasks()}</h3>
     <ul>
-      {tasks.map((task) => (
+    {sortTasks().map((task) => (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
         <div className="task-info">
           <div className="task-title"> Title: {task.title}</div>
           {/* <div className="task-description"> Description: {task.description}</div> */}
           {/* Conditionally render description only if it exists */}
           {task.description && <div className="task-description">Description: {task.description}</div>}
-          <div className="task-date"> Date: {task.date}</div>
+          <div className="task-date"> Date: {formatDate(task.date)}</div>
           <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
         </div>
           <div className="task-buttons">

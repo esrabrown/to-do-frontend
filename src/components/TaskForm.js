@@ -12,9 +12,13 @@ const  TaskForm = ({ onCreateTodo }) => {
     const [selectedDate, setSelectedDate] = useState('');
 
   const handleSubmit = (e) => {
-    console.log('Entering handleSubmit');
     e.preventDefault();
-    console.log('Form submitted');
+
+    if (!title.trim()) {
+      alert('Task title cannot be empty!');
+      return;
+    }
+
     axios.post('http://localhost:8080/api/create', { title, description, dueDate: selectedDate, completed: false })
       .then((response) => {
         onCreateTodo(response.data);
