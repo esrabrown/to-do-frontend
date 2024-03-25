@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+// import { format, parseISO } from 'date-fns';
 // import { Link } from 'react-router-dom';
 
 const TaskList = () => {
@@ -11,6 +12,7 @@ const TaskList = () => {
       .then((response) => setTasks(response.data))
       .catch((error) => console.error(error));
   }, []);
+
 
   const handleDelete = (taskId) => {
     // Sending a DELETE request to backend API
@@ -46,15 +48,25 @@ const TaskList = () => {
   };
 
   const formatDate = (dateString) => {
-    const formattedDate = new Date(dateString);
-
-    if (isNaN(formattedDate)) {
+    // Assuming dateString is in "YYYY-MM-DD" format
+    const dateParts = dateString.split('-');
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; // Months are zero-based in JavaScript Date
+    const day = parseInt(dateParts[2]);
+  
+    const utcDate = new Date(Date.UTC(year, month, day)); // Set timezone to UTC
+  
+    if (isNaN(utcDate)) {
       return "Invalid Date";
     }
-
-    // Adjust the date format as needed
-    return formattedDate.toLocaleDateString();
+  
+    // Convert UTC date to local date for display
+    const localDate = new Date(utcDate.getTime() + (utcDate.getTimezoneOffset() * 60000));
+  
+    return localDate.toLocaleDateString();
   };
+  
+
 
   const pendingTasks = () => {
     const pendingTasks = tasks.filter(task => !task.completed);
@@ -139,7 +151,7 @@ return (
           {/* <div className="task-description"> Description: {task.description}</div> */}
           {/* Conditionally render description only if it exists */}
           {task.description && <div className="task-description">Description: {task.description}</div>}
-          <div className="task-date"> Date: {formatDate(task.date)}</div>
+          <div className="task-date"> Date: {formatDate(task.dueDate)}</div>
           <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
         </div>
           <div className="task-buttons">
