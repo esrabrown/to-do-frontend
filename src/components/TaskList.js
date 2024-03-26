@@ -53,19 +53,19 @@ const TaskList = () => {
     const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1; // Months are zero-based in JavaScript Date
     const day = parseInt(dateParts[2]);
-  
+
     const utcDate = new Date(Date.UTC(year, month, day)); // Set timezone to UTC
-  
+
     if (isNaN(utcDate)) {
       return "Invalid Date";
     }
-  
+
     // Convert UTC date to local date for display
     const localDate = new Date(utcDate.getTime() + (utcDate.getTimezoneOffset() * 60000));
-  
+
     return localDate.toLocaleDateString();
   };
-  
+
 
 
   const pendingTasks = () => {
