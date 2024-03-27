@@ -29,6 +29,10 @@ const  TaskForm = ({ onCreateTodo }) => {
       .catch((error) => console.error(error));
   };
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div className='container'>
      <div>
@@ -92,7 +96,7 @@ const  TaskForm = ({ onCreateTodo }) => {
             type="text"
             placeholder="Task Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(capitalizeFirstLetter(e.target.value))}
           />
          </div>
          <div className='form-section'>
@@ -101,7 +105,7 @@ const  TaskForm = ({ onCreateTodo }) => {
             type="text"
             placeholder="Task Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setDescription(capitalizeFirstLetter(e.target.value))}
           />
         </div>
         <div className='form-section'>

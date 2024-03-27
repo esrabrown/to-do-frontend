@@ -72,13 +72,14 @@ const TaskList = () => {
     const pendingTasks = tasks.filter(task => !task.completed);
 
     if (pendingTasks.length === 0) {
-      return 'No pending tasks';
+      return 'No Pending Tasks';
     } else if (pendingTasks.length === 1) {
-      return '1 pending task';
+      return '1 Pending Task';
     } else {
-      return `${pendingTasks.length} pending task${pendingTasks.length > 1 ? 's' : ''}`;
+      return `${pendingTasks.length} Pending Task${pendingTasks.length > 1 ? 's' : ''}`;
     }
   };
+
 
 
   const GreenCheckIcon = () => (
@@ -137,8 +138,19 @@ const TaskList = () => {
   );
 
   const sortTasks = () => {
-    return [...tasks].sort((a, b) => (a.completed && !b.completed ? 1 : -1));
+    // return [...tasks].sort((a, b) => (a.completed && !b.completed ? 1 : -1));
+    return [...tasks].sort((a, b) => {
+      // Sort by completion status first
+      if (a.completed && !b.completed) return 1; // Completed tasks go down
+      if (!a.completed && b.completed) return -1; // Incomplete tasks go up
+
+      // Sort by due date if completion status is the same
+      const dateA = new Date(a.dueDate);
+      const dateB = new Date(b.dueDate);
+      return dateA - dateB; // Closer due dates go up
+    });
   };
+
 
 return (
   <div>
@@ -147,12 +159,11 @@ return (
     {sortTasks().map((task) => (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
         <div className="task-info">
-          <div className="task-title"> Title: {task.title}</div>
-          {/* <div className="task-description"> Description: {task.description}</div> */}
+          <div className="task-title"> <b> Title: </b> {task.title}</div>
           {/* Conditionally render description only if it exists */}
-          {task.description && <div className="task-description">Description: {task.description}</div>}
-          <div className="task-date"> Date: {formatDate(task.dueDate)}</div>
-          <div className="task-status">Status: {task.completed ? 'Completed' : 'Incomplete'}</div>
+          {task.description && <div className="task-description"> <b> Description: </b>{task.description}</div>}
+          <div className="task-date"> <b> Date: </b> {formatDate(task.dueDate)}</div>
+          <div className="task-status"> <b> Status: </b> {task.completed ? 'Completed' : 'Incomplete'}</div>
         </div>
           <div className="task-buttons">
           <button

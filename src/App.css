@@ -31,6 +31,8 @@ body {
 .pendingtasks{
   font-size: 1.5rem;
   margin-bottom: 10px;
+  color: #024069;
+  font-style: italic;
 }
 
 
@@ -192,9 +194,6 @@ body {
     margin-bottom: 6px;
   }
 
-  .task-title {
-    font-weight: bold;
-  }
 
   /* .task-description {
     margin-bottom: 5px;
@@ -230,18 +229,18 @@ body {
 } */
 
 /* .complete-button :hover{
-  box-shadow: 0 0 0 3px  green;
+  box-shadow: 0 0 0 2px  green;
   border-color:  green;
 
-} */
+}
 
-/* .complete-button :hover{
+.complete-button :hover{
   fill: green;
-} */
+}
 
 .complete-button.completed {
   fill: green;
-}
+} */
 
 /* .delete-button {
   float: right;
@@ -265,8 +264,9 @@ body {
 a {
   display: inline-block;
   margin-top: 16px;
-  color: #06558a;
+  color: #024069;
   text-decoration: none;
+  font-style: italic;
 }
 
 a:hover {
