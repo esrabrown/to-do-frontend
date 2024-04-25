@@ -48,7 +48,10 @@ const TaskList = () => {
   };
 
   const formatDate = (dateString) => {
-    // Assuming dateString is in "YYYY-MM-DD" format
+    if (!dateString) {
+      return "No Due Date"; // Handle case when due date is not provided
+    }
+// Assuming dateString is in "YYYY-MM-DD" format
     const dateParts = dateString.split('-');
     const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1; // Months are zero-based in JavaScript Date
