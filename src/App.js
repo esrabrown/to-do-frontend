@@ -1,50 +1,69 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-
+import Login from './components/Login';
+import Register from './components/Register';
 
 const App = () => {
   const [todos, setTodos] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(true);
 
   useEffect(() => {
-    // Fetch the list of to-do items from your API or database
-    axios.get('http://localhost:8080/api/todos')
-      .then((response) => {
-        setTodos(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
+    if (isAuthenticated) {
+      // Fetch the list of to-do items from your API or database when authenticated
+      axios.get('http://localhost:8080/api/todos')
+        .then((response) => {
+          setTodos(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [isAuthenticated]);
 
   const handleCreateTodo = (newTodo) => {
     setTodos([...todos, newTodo]);
     setShowTaskForm(false); // Switch to the task list view
   };
 
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
 
-return (
-  <Router>
-    <div className="App">
-      <main>
-        {showTaskForm ? (
-          <TaskForm onCreateTodo={handleCreateTodo} />
-        ) : (
-          <TaskList items={todos} />
-        )}
-      </main>
-    </div>
-  </Router>
-);
-}
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setShowTaskForm(true);
+  };
 
-
-
+  return (
+    <Router>
+      <div className="App">
+        <main>
+          <Routes>
+            <Route path="/" element={isAuthenticated ? (
+              <>
+                {showTaskForm ? (
+                  <TaskForm onCreateTodo={handleCreateTodo} />
+                ) : (
+                  <TaskList items={todos} />
+                )}
+                <button onClick={handleLogout}>Logout</button>
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+};
 
 export default App;

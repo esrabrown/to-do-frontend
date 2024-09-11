@@ -15,10 +15,8 @@ const TaskList = () => {
 
 
   const handleDelete = (taskId) => {
-    // Sending a DELETE request to backend API
     axios.delete(`http://localhost:8080/api/${taskId}`)
       .then(() => {
-        // After successful deletion, remove the task from the state
         setTasks(tasks.filter(task => task.id !== taskId));
       })
       .catch((error) => console.error(error));
@@ -38,7 +36,6 @@ const TaskList = () => {
     // Send a PATCH or PUT request to update the completion status in the backend
     axios.patch(`http://localhost:8080/api/${taskId}?completed=${!isCompleted}`, { completed: !isCompleted })
       .then(() => {
-        // The task's completion status has been updated on the backend
       })
       .catch((error) => {
         console.error(error);
@@ -49,7 +46,7 @@ const TaskList = () => {
 
   const formatDate = (dateString) => {
     if (!dateString) {
-      return "No Due Date"; // Handle case when due date is not provided
+      return "No Due Date";
     }
 // Assuming dateString is in "YYYY-MM-DD" format
     const dateParts = dateString.split('-');
@@ -143,11 +140,11 @@ const TaskList = () => {
   const sortTasks = () => {
     // return [...tasks].sort((a, b) => (a.completed && !b.completed ? 1 : -1));
     return [...tasks].sort((a, b) => {
-      // Sort by completion status first
+      // Sorting by completion status first
       if (a.completed && !b.completed) return 1; // Completed tasks go down
       if (!a.completed && b.completed) return -1; // Incomplete tasks go up
 
-      // Sort by due date if completion status is the same
+      // Sorting by due date if completion status is the same
       const dateA = new Date(a.dueDate);
       const dateB = new Date(b.dueDate);
       return dateA - dateB; // Closer due dates go up
@@ -163,7 +160,7 @@ return (
         <li key={task.id} className={`task-box ${task.completed ? 'completed' : ''}`}>
         <div className="task-info">
           <div className="task-title"> <b> Title: </b> {task.title}</div>
-          {/* Conditionally render description only if it exists */}
+          {/* Conditionally rendering description only if it exists */}
           {task.description && <div className="task-description"> <b> Description: </b>{task.description}</div>}
           <div className="task-date"> <b> Date: </b> {formatDate(task.dueDate)}</div>
           <div className="task-status"> <b> Status: </b> {task.completed ? 'Completed' : 'Incomplete'}</div>
