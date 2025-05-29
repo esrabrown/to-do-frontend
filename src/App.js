@@ -1,3 +1,75 @@
+// import React, { useState, useEffect } from 'react';
+// import './App.css';
+// import axios from 'axios';
+// import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+// import TaskForm from './components/TaskForm';
+// import TaskList from './components/TaskList';
+// import Login from './components/Login';
+// import Register from './components/Register';
+
+// const App = () => {
+//   const [todos, setTodos] = useState([]);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+//   const [showTaskForm, setShowTaskForm] = useState(true);
+
+//   useEffect(() => {
+//     if (isAuthenticated) {
+//       // Fetch the list of to-do items from your API or database when authenticated
+//       axios.get('http://localhost:8080/api/todos')
+//         .then((response) => {
+//           setTodos(response.data);
+//         })
+//         .catch((error) => {
+//           console.error(error);
+//         });
+//     }
+//   }, [isAuthenticated]);
+
+//   const handleCreateTodo = (newTodo) => {
+//     setTodos([...todos, newTodo]);
+//     setShowTaskForm(false); // Switch to the task list view
+//   };
+
+//   const handleLogin = () => {
+//     setIsAuthenticated(true);
+//   };
+
+//   const handleLogout = () => {
+//     setIsAuthenticated(false);
+//     setShowTaskForm(true);
+//   };
+
+//   return (
+//     <Router>
+//       <div className="App">
+//         <main>
+//           <Routes>
+//             <Route path="/" element={isAuthenticated ? (
+//               <>
+//                 {showTaskForm ? (
+//                   <TaskForm onCreateTodo={handleCreateTodo} />
+//                 ) : (
+//                   <TaskList items={todos} />
+//                 )}
+//                 <button onClick={handleLogout}>Logout</button>
+//               </>
+//             ) : (
+//               <Navigate to="/login" />
+//             )} />
+//             <Route path="/login" element={<Login onLogin={handleLogin} />} />
+//             <Route path="/register" element={<Register />} />
+//             <Route path="/todoform" element={<TaskForm />} />
+//             <Route path="/todolist" element={<TaskList />} />
+//           </Routes>
+//         </main>
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
@@ -8,6 +80,9 @@ import TaskList from './components/TaskList';
 import Login from './components/Login';
 import Register from './components/Register';
 
+// Enable sending cookies with every request
+axios.defaults.withCredentials = true;
+
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,12 +91,14 @@ const App = () => {
   useEffect(() => {
     if (isAuthenticated) {
       // Fetch the list of to-do items from your API or database when authenticated
-      axios.get('http://localhost:8080/api/todos')
+      axios.get('http://localhost:8080/api/todos', {
+        withCredentials: true
+      })
         .then((response) => {
           setTodos(response.data);
         })
         .catch((error) => {
-          console.error(error);
+          console.error('Error fetching todos:', error);
         });
     }
   }, [isAuthenticated]);
@@ -36,6 +113,11 @@ const App = () => {
   };
 
   const handleLogout = () => {
+    // Optional: log out from the backend too
+    axios.post('http://localhost:8080/api/users/authentication/logout', {}, {
+      withCredentials: true
+    }).catch((error) => console.error('Logout failed:', error));
+
     setIsAuthenticated(false);
     setShowTaskForm(true);
   };
@@ -59,6 +141,8 @@ const App = () => {
             )} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/todoform" element={<TaskForm />} />
+            <Route path="/todolist" element={<TaskList />} />
           </Routes>
         </main>
       </div>

@@ -8,14 +8,14 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/todos')
+    axios.get('http://localhost:8080/api/todos', { withCredentials: true })
       .then((response) => setTasks(response.data))
       .catch((error) => console.error(error));
   }, []);
 
 
   const handleDelete = (taskId) => {
-    axios.delete(`http://localhost:8080/api/${taskId}`)
+    axios.delete(`http://localhost:8080/api/todos/${taskId}`, { withCredentials: true })
       .then(() => {
         setTasks(tasks.filter(task => task.id !== taskId));
       })
@@ -34,7 +34,12 @@ const TaskList = () => {
     setTasks(updatedTasks);
 
     // Send a PATCH or PUT request to update the completion status in the backend
-    axios.patch(`http://localhost:8080/api/${taskId}?completed=${!isCompleted}`, { completed: !isCompleted })
+    axios.patch(`http://localhost:8080/api/todos/${taskId}?completed=${!isCompleted}`,
+    { completed: !isCompleted },
+    {
+      withCredentials: true,
+    }
+  )
       .then(() => {
       })
       .catch((error) => {
