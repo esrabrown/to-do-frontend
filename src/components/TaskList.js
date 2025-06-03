@@ -184,7 +184,6 @@ return (
         </li>
       ))}
     </ul>
-    <a href="/">Add More Tasks</a>
   </div>
 );
 };
